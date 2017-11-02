@@ -60,8 +60,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
   double dq=0.2;
   int graph_id=0;
-
+QVector<q_dot> mass_center;   //mass center
   QVector<q_dot> q;   //q set belongs to D
+
   QVector<QVector<q_dot>> party;  //pi
   QVector<QVector<QVector<q_dot>>> party_list;//Pi
 
@@ -93,43 +94,45 @@ MainWindow::MainWindow(QWidget *parent) :
     vor_points.push_back(Point_2(4,-4));
 
     std::cout <<"the number of voronoi points is : "<<vor_points.size()<<std::endl;
-
-
+ int t=0;
   for(QVector<q_dot>::iterator it=q.begin();it!=q.end();it++)
   {
-      int minima_index;
+
       q_dot &data = *it;
+      double pi_x;
+      double pi_y ;
+      double distance_i=0; //Voronoi Points pi
+      double mini_distance =150;
 
       //{q belongs to D |  ||q-pi|| < ||q-pj|| }   q belongs to Pi
-        for(std::vector<Point_2>::iterator it_i=vor_points.begin();it_i!=vor_points.end();it_i++)
+        for(int i=0;i<vor_points.size();i++)
         {
-           for(std::vector<Point_2>::iterator it_j=(it_i);it_j!=vor_points.end();it_j++)
-           {
-              Point_2 &vor_pi=*it_i;  double distance_i=0; //Voronoi Points pi
-              Point_2 &vor_pj=*it_j;  double distance_j=0; //Voronoi Points pi
+               pi_x = vor_points[i].hx();
+               pi_y = vor_points[i].hy();
 
-               distance_i = (data.x-vor_pi.hx())*(data.x-vor_pi.hx())+(data.y-vor_pi.hy())*(data.y-vor_pi.hy());
-               distance_j = (data.x-vor_pj.hx())*(data.x-vor_pj.hx())+(data.y-vor_pj.hy())*(data.y-vor_pj.hy());
-                //taking square root is not neccessary
-               if(distance_i < distance_j)
-               {
-                auto index=std::distance(vor_points.begin(),it_i);
+               distance_i = sqrt((data.x-pi_x)*(data.x-pi_x)+(data.y-pi_y)*(data.y-pi_y));
 
-                minima_index = index;
-                 //todo
-               }
-
-           }
+                if(mini_distance>=distance_i)
+                {
+                     mini_distance =distance_i ;
+                    (*it).party=i;
+                }
         }
-
+        t++;
   }
-    int co=0;
+  std::cout<<"t = "<<t<<std::endl;
+  int co=0;
     for(QVector<q_dot>::iterator it=q.begin();it!=q.end();it++)
     {
-        std::cout<<"count = "<<co<<"x = "<<it->x <<"  y = "<<it->y<< "  party = " <<it->party<<std::endl;
-        co++;
+        std::cout<<it->party;
 
+        if(((co+1)%100)==0)
+        {
+            std::cout<<std::endl;
+        }
+        co++;
     }
+
    ui->customPlot->xAxis->setRange(-10,10);
    ui->customPlot->yAxis->setRange(-10,10);
    ui->customPlot->xAxis->setLabel("x");
@@ -158,7 +161,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
      dt2.insert(vor_points.begin(),vor_points.end()); //insert my Voronoi points
 
-     Iso_rectangle_2 bbox(-8,-8,8,8);            //create boundary for Voronoi diagram
+     Iso_rectangle_2 bbox(-10,-10,10,10);            //create boundary for Voronoi diagram
      Cropped_voronoi_from_delaunay vor(bbox);    //extract the cropped Voronoi diagram
 
      dt2.draw_dual(vor);        //calculate
