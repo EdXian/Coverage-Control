@@ -60,13 +60,17 @@ MainWindow::MainWindow(QWidget *parent) :
 
   double dq=0.2;
   int graph_id=0;
-QVector<q_dot> mass_center;   //mass center
+
+
+  QVector<q_dot> mass_center;   //mass center
+  QVector<double> mass; //mass
   QVector<q_dot> q;   //q set belongs to D
 
   QVector<QVector<q_dot>> party;  //pi
+
   QVector<QVector<QVector<q_dot>>> party_list;//Pi
 
-  QVector<double> dfx(101) , dfy(101);
+  QVector<double> dfx(100) , dfy(100);
   double sigma=2, u=0,c=25;
 
   std::vector<Point_2> vor_points;  // vor_points
@@ -94,7 +98,7 @@ QVector<q_dot> mass_center;   //mass center
     vor_points.push_back(Point_2(4,-4));
 
     std::cout <<"the number of voronoi points is : "<<vor_points.size()<<std::endl;
- int t=0;
+
   for(QVector<q_dot>::iterator it=q.begin();it!=q.end();it++)
   {
 
@@ -118,9 +122,9 @@ QVector<q_dot> mass_center;   //mass center
                     (*it).party=i;
                 }
         }
-        t++;
+
   }
-  std::cout<<"t = "<<t<<std::endl;
+/*   print
   int co=0;
     for(QVector<q_dot>::iterator it=q.begin();it!=q.end();it++)
     {
@@ -132,12 +136,64 @@ QVector<q_dot> mass_center;   //mass center
         }
         co++;
     }
+*/
 
-   ui->customPlot->xAxis->setRange(-10,10);
-   ui->customPlot->yAxis->setRange(-10,10);
-   ui->customPlot->xAxis->setLabel("x");
-   ui->customPlot->yAxis->setLabel("y");
 
+  QVector<QVector<q_dot>> parti(vor_points.size());
+
+    for(QVector<q_dot>::iterator it=q.begin();it!=q.end();it++)
+    {
+        parti[(*it).party].push_back(*it);
+    }
+    for(int i=0;i<100;i++)
+    {
+        double dx=0;
+        dx=0.2*i-10;
+       dfx[i] = dx;
+       dfy[i] = c*1/(sigma*2.50599)*exp(-1*(dx-u)*(dx-u)/(2*sigma*sigma));
+    }
+
+    for(QVector<QVector<q_dot>>::iterator it_i=parti.begin() ; it_i!=parti.end();it_i++)
+    {
+       double sum=0;
+       QVector<q_dot> &p_data = *it_i;
+       for(QVector<q_dot>::iterator it_j=p_data.begin();it_j!=p_data.end();it_j++)
+       {
+         sum+=dq*dq*c*1/(sigma*2.50599)*exp(-1*((*it_j).x-u)*((*it_j).x-u)/(2*sigma*sigma));
+       // std::cout<<"x= "<<(*it_j).x<<"   y="<<(*it_j).y<<"  part="<<(*it_j).party<<std::endl;
+       }
+       mass.push_back(sum);
+       sum=0;
+    }
+
+    for(QVector<QVector<q_dot>>::iterator it_i=parti.begin() ; it_i!=parti.end();it_i++)
+    {
+       double sum_x=0,sum_y=0;
+       q_dot data;
+       QVector<q_dot> &p_data = *it_i;
+       for(QVector<q_dot>::iterator it_j=p_data.begin();it_j!=p_data.end();it_j++)
+       {
+         sum_x+=(*it_j).x*dq*dq*c*1/(sigma*2.50599)*exp(-1*((*it_j).x-u)*((*it_j).x-u)/(2*sigma*sigma));
+         sum_y+=(*it_j).y*dq*dq;
+          data.party=(*it_j).party;
+       }
+       data.x=sum_x;
+       data.y=sum_y;
+       mass_center.push_back(data);
+
+       sum_x=0;
+    }
+
+    for(int i=0;i<vor_points.size();i++)
+    {
+      mass_center[i].x /= mass[i];
+      mass_center[i].y /= mass[i];
+    }
+
+    for(int i=0;i<vor_points.size();i++)
+    {
+     std::cout<<"x= "<<mass_center[i].x<<"   y="<<mass_center[i].y<<"  part="<<mass_center[i].party<<std::endl;
+    }
 
 
 
@@ -185,15 +241,11 @@ QVector<q_dot> mass_center;   //mass center
 
     //density function - normal distribution
 
-    for(int i=0;i<=100;i++)
-    {
-        double dx=0;
-        dx=0.2*i-10;
-       dfx[i] = dx;
-       dfy[i] = c*1/(sigma*2.50599)*exp(-1*(dx-u)*(dx-u)/(2*sigma*sigma));
-    }
 
-
+    ui->customPlot->xAxis->setRange(-10,10);
+    ui->customPlot->yAxis->setRange(-10,10);
+    ui->customPlot->xAxis->setLabel("x");
+    ui->customPlot->yAxis->setLabel("y");
     ui->density_function->addGraph();
     ui->density_function->xAxis->setRange(-10,10);
     ui->density_function->yAxis->setRange(0,5);
