@@ -8,16 +8,17 @@ voronoi::voronoi(double x , double y ,double dq)
 }
 
 
-void voronoi::q_define(dot_set& q)
+void voronoi::q_define(dot_set& data)
 {
     for(int i=0;i<(2*x_range/dq);i++)
     {
         for(int j=0;j<(2*y_range/dq);j++)
         {
-            dot data;
-            data.x=-1*x_range+(dq)*i;
-            data.y=-1*y_range+(dq)*j;
-            q.push_back(data);
+            dot _data;
+            _data.x=-1*x_range+(dq)*i;
+            _data.y=-1*y_range+(dq)*j;
+            data.push_back(_data);
+
         }
     }
 }
@@ -49,9 +50,20 @@ void voronoi::allocate(dot_set& data)
           (*it).partition = i;
         }
     }
-   // std::cout<<(*it).x<<"   "<<(*it).y<<"   "<<(*it).partition<<std::endl;
+
     mini_dist=sqrt(x_range*x_range+y_range*y_range);
  }
+}
+
+
+void voronoi::distribute(dot_set& data , vor_partition& partition)
+{
+   // partition(vor_points.size());
+  for(dot_set::iterator it = data.begin();it!=data.end();it++)  //  use iterator???
+  {
+    partition[(*it).partition].push_back(*(it));
+
+  }
 }
 
 void voronoi::print(){
