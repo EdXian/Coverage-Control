@@ -11,6 +11,8 @@ struct dot{
     double x;
     double y;
     int    partition;
+    double density;
+
 };
 typedef std::vector<dot> dot_set;
 typedef std::vector<dot_set> vor_partition;
