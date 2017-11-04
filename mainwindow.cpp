@@ -1,8 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "qcustomplot.h"
-#include <eigen3/Eigen/Dense>
-#include <eigen3/Eigen/Geometry>
 #include "stdio.h"
 #include "iostream"
 #include "math.h"
@@ -97,7 +95,7 @@ MainWindow::MainWindow(QWidget *parent) :
     vor_points.push_back(Point_2(-1,-1));
     vor_points.push_back(Point_2(4,-4));
 
-    std::cout <<"the number of voronoi points is : "<<vor_points.size()<<std::endl;
+   // std::cout <<"the number of voronoi points is : "<<vor_points.size()<<std::endl;
 
   for(QVector<q_dot>::iterator it=q.begin();it!=q.end();it++)
   {
@@ -192,7 +190,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     for(int i=0;i<vor_points.size();i++)
     {
-     std::cout<<"x= "<<mass_center[i].x<<"   y="<<mass_center[i].y<<"  part="<<mass_center[i].party<<std::endl;
+    // std::cout<<"x= "<<mass_center[i].x<<"   y="<<mass_center[i].y<<"  part="<<mass_center[i].party<<std::endl;
     }
 
 
