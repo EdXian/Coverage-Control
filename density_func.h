@@ -15,8 +15,8 @@ public:
     //dot_set dot;
     //voronoi *vor;
     void update_func(dot_set data);
-    void set_coeffi(double _sigma,double _k,double _u);
-    void dot_define(density_set &data);
+    void set_coeffi(double _sigma, double _k, double _u_x,double _u_y);
+    void dot_update(density_set &data);
     void mi (density_set &data);
     void vor_partition(density_set& data);
     double dq;
@@ -26,7 +26,8 @@ private:
 
     double sigma;
     double k;
-    double u;
+    double u_x;
+    double u_y;
 };
 
 #endif // DENSITY_FUNC_H
