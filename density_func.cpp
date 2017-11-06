@@ -31,7 +31,7 @@ void density_func::dot_update(density_set &data)
             ddot _data;
             _data.coord.x=-1*x_range+(dq)*i;
             _data.coord.y=-1*y_range+(dq)*j;
-            _data.density = k*1/(sigma*2.50599)*exp(-0.5*((_data.coord.x-u_x)*(_data.coord.x-u_x)+(_data.coord.y-u_y)*(_data.coord.y-u_y))/(2*sigma*sigma));
+            _data.density = k/(sigma*2.50599)*exp(-0.1*((_data.coord.x-u_x)*(_data.coord.x-u_x)+(_data.coord.y-u_y)*(_data.coord.y-u_y))/(2*sigma*sigma));
             data.push_back(_data);
         }
     }

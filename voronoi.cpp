@@ -67,6 +67,37 @@ void voronoi::distribute(dot_set& data , vor_partition& partition)
   }
 }
 
+
+void voronoi::set_density(dot_set& data,double k,double u_x,double u_y,double sigma)
+{
+   for(dot_set::iterator it = data.begin();it!=data.end();it++)
+   {
+       (*it).density = k/(sigma*2.50599)*exp(-0.1*(((*it).x-u_x)*((*it).x-u_x)+((*it).y-u_y)*((*it).y-u_y))/(2*sigma*sigma));
+   }
+}
+
+void voronoi::get_partition_masscenter(vor_partition &data,dot_set &m)
+{
+    for(vor_partition::iterator it_i = data.begin();it_i!=data.end();it_i++)
+    {
+       double sum=0.0;
+       double sum_x=0.0,sum_y=0.0;
+       dot c;
+       dot_set &_data =*it_i;
+       for(dot_set::iterator it_j=_data.begin();it_j!=_data.end();it_j++)
+       {
+          sum+=(*it_j).density;
+          sum_x+=(*it_j).x*(*it_j).density;
+          sum_y+=(*it_j).y*(*it_j).density;
+       }
+       c.x = sum_x/sum;
+       c.y = sum_y/sum;
+       m.push_back(c);
+       sum=0;
+    }
+
+}
+
 void voronoi::print(){
 
     std::cout<<"ok"<<std::endl;
