@@ -17,9 +17,7 @@ void voronoi::q_define(dot_set& data)
             dot _data;
             _data.x=-1*x_range+(dq)*i;
             _data.y=-1*y_range+(dq)*j;
-
             data.push_back(_data);
-
         }
     }
 }

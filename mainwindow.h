@@ -59,9 +59,11 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+
+
 private slots:
     void on_pushButton_clicked();
-
+    void plot_loop();
 private:
     Ui::MainWindow *ui;
     int graph_id;
@@ -75,6 +77,7 @@ private:
     voronoi *vor;
     density_func *den;
      QTimer *timer;
+     dot_set vor_dot;
 };
 
 #endif // MAINWINDOW_H
