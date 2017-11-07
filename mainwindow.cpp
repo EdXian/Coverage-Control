@@ -46,6 +46,7 @@ void MainWindow::plot_loop()
     q.clear();
     graph_id = 0;
     dt2.clear();
+
     ui->customPlot->clearGraphs();
     vor_points1.clear();
 
@@ -53,7 +54,7 @@ void MainWindow::plot_loop()
 
     vor.set_vor_points(vor_dot);
 
-    vor.set_density(q,20,7,7,-0.1);
+    vor.set_density(q,20,u_x,u_y,-0.1);
     vor.allocate(q);
     vor.distribute(q,partition);
     vor.get_partition_masscenter(partition,c);
@@ -85,11 +86,22 @@ void MainWindow::plot_loop()
         ui->customPlot->graph(graph_id)->setData(x,y);
         graph_id++;
      }
+
+
+    dfx.clear();
+    dfy.clear();
+    for(unsigned int i=0;i<vor_dot.size();i++)
+    {
+        dfx.push_back(vor_dot[i].x);
+        dfy.push_back(vor_dot[i].y);
+        ui->customPlot->addGraph();
+        ui->customPlot->graph(graph_id)->setData(dfx,dfy);
+        ui->customPlot->graph(graph_id)->setLineStyle(QCPGraph::LineStyle::lsNone);
+        ui->customPlot->graph(graph_id)->setScatterStyle(QCPScatterStyle::ssCircle);
+        ui->customPlot->graph(graph_id)->setPen(QPen(Qt::red));
+        graph_id++;
+    }
     ui->customPlot->replot();
-
-
-
-
     for(unsigned int i=0;i<vor_dot.size();i++)
     {
         vor_dot[i].x += -0.1*(vor_dot[i].x-c[i].x);
@@ -106,5 +118,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-
+        u_x= ui->u_x_value->text().toDouble();
+        u_y= ui->u_y_value->text().toDouble();
 }

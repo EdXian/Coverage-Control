@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>847</width>
-    <height>817</height>
+    <height>700</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -37,13 +37,23 @@
      <string>Plot</string>
     </property>
    </widget>
-   <widget class="QCustomPlot" name="density_function" native="true">
+   <widget class="QLineEdit" name="u_x_value">
     <property name="geometry">
      <rect>
-      <x>110</x>
-      <y>640</y>
-      <width>611</width>
-      <height>101</height>
+      <x>730</x>
+      <y>150</y>
+      <width>91</width>
+      <height>25</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="u_y_value">
+    <property name="geometry">
+     <rect>
+      <x>730</x>
+      <y>190</y>
+      <width>91</width>
+      <height>25</height>
      </rect>
     </property>
    </widget>
@@ -54,7 +64,7 @@
      <x>0</x>
      <y>0</y>
      <width>847</width>
-     <height>19</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>

@@ -78,6 +78,7 @@ private:
     density_func *den;
      QTimer *timer;
      dot_set vor_dot;
+     double u_x=0,u_y=0;
 
 };
 
