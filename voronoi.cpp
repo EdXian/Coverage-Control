@@ -70,7 +70,7 @@ void voronoi::set_density(dot_set& data,double k,double u_x,double u_y,double si
 {
    for(dot_set::iterator it = data.begin();it!=data.end();it++)
    {
-       (*it).density = k/(sigma*2.50599)*exp(-0.1*(((*it).x-u_x)*((*it).x-u_x)+((*it).y-u_y)*((*it).y-u_y))/(2*sigma*sigma));
+       (*it).density = k*exp(sigma*(((*it).x-u_x)*((*it).x-u_x)+((*it).y-u_y)*((*it).y-u_y)));
    }
 }
 

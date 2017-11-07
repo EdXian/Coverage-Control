@@ -71,13 +71,14 @@ private:
     dot_set q;
     dot_set c;
     density_set density_dot;
-    std::vector<double> m;
+
     double k=25,u=0,sigma=2;
     QVector<double> dfx, dfy;
-    voronoi *vor;
+    //voronoi *vor;
     density_func *den;
      QTimer *timer;
      dot_set vor_dot;
+
 };
 
 #endif // MAINWINDOW_H
