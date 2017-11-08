@@ -28,7 +28,7 @@
     <property name="geometry">
      <rect>
       <x>750</x>
-      <y>100</y>
+      <y>170</y>
       <width>89</width>
       <height>25</height>
      </rect>
@@ -40,8 +40,8 @@
    <widget class="QLineEdit" name="u_x_value">
     <property name="geometry">
      <rect>
-      <x>730</x>
-      <y>150</y>
+      <x>750</x>
+      <y>50</y>
       <width>91</width>
       <height>25</height>
      </rect>
@@ -50,11 +50,83 @@
    <widget class="QLineEdit" name="u_y_value">
     <property name="geometry">
      <rect>
-      <x>730</x>
-      <y>190</y>
+      <x>750</x>
+      <y>20</y>
       <width>91</width>
       <height>25</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>730</x>
+      <y>20</y>
+      <width>67</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>x</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>730</x>
+      <y>50</y>
+      <width>67</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Y</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="k_value">
+    <property name="geometry">
+     <rect>
+      <x>750</x>
+      <y>90</y>
+      <width>91</width>
+      <height>25</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="sigma_value">
+    <property name="geometry">
+     <rect>
+      <x>782</x>
+      <y>130</y>
+      <width>61</width>
+      <height>25</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>730</x>
+      <y>90</y>
+      <width>67</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>K</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>730</x>
+      <y>130</y>
+      <width>67</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Sigma</string>
     </property>
    </widget>
   </widget>

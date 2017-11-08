@@ -54,7 +54,7 @@ void MainWindow::plot_loop()
 
     vor.set_vor_points(vor_dot);
 
-    vor.set_density(q,20,u_x,u_y,-0.1);
+    vor.set_density(q,k,u_x,u_y,sigma);
     vor.allocate(q);
     vor.distribute(q,partition);
     vor.get_partition_masscenter(partition,c);
@@ -120,4 +120,6 @@ void MainWindow::on_pushButton_clicked()
 {
         u_x= ui->u_x_value->text().toDouble();
         u_y= ui->u_y_value->text().toDouble();
+        k=ui->k_value->text().toDouble();
+        sigma=ui->sigma_value->text().toDouble();
 }

@@ -72,13 +72,14 @@ private:
     dot_set c;
     density_set density_dot;
 
-    double k=25,u=0,sigma=2;
+  //  double k=25,u=0,sigma=2;
     QVector<double> dfx, dfy;
     //voronoi *vor;
     density_func *den;
      QTimer *timer;
      dot_set vor_dot;
      double u_x=0,u_y=0;
+     double k=20,sigma=-0.1;
 
 };
 
