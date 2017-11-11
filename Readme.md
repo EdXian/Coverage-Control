@@ -26,10 +26,23 @@ CGAL : [4.11](https://www.cgal.org/)
 
 Voronoi tessellation Algorithm  voronoi.h/.cpp (pure C++ 11)
 
-# Block Diagram:
+## Block Diagram:
 ![alt text](Diagram/Block_Diagram.png?raw=true "Title")
+
+## Voronoi Tessellation:
 ![alt text](Diagram/Voronoi_Tessellation.png?raw=true "Title")
 
-## Known issue
+## Trouble Shooting:
 
+If you get error as following , try to comment the assertion `CGAL_kernel_assertion ( ! CGAL_NTS is_zero(den) );
+` which is in path :`/usr/include/CGAL/constructions/kernel_ftC2.h`
+
+```
+terminate called after throwing an instance of 'CGAL::Assertion_exception'
+what():  CGAL ERROR: assertion violation!
+Expr: ! CGAL_NTS is_zero(den)
+File: /usr/include/CGAL/constructions/kernel_ftC2.h
+Line: 62
+The program has unexpectedly finished.
+```
 
