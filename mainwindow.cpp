@@ -7,8 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
     vor_dot(6)
 {
     ui->setupUi(this);
-    //vor = new voronoi(10,10,0.2);
-    den = new density_func(10,10,0.2);
+
 
     vor_dot[0].x=0;vor_dot[0].y=0;
     vor_dot[1].x=1;vor_dot[1].y=1;
@@ -16,14 +15,6 @@ MainWindow::MainWindow(QWidget *parent) :
     vor_dot[3].x=3;vor_dot[3].y=1;
     vor_dot[4].x=-1;vor_dot[4].y=-1;
     vor_dot[5].x=4;vor_dot[5].y=-4;
-    for(dot_set::iterator it=vor_dot.begin();it!=vor_dot.end();it++)
-        {
-//           (*it).vx = 0.1;
-//           (*it).vy = 0.2;
-
-            //std::cout<<"x = "<<(*it).vx<<"  y= "<<(*it).vy<<std::endl;
-        }
-
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()),this, SLOT(plot_loop()));
     timer->start(50);
@@ -31,6 +22,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->customPlot->yAxis->setRange(-10,10);
     ui->customPlot->xAxis->setLabel("x");
     ui->customPlot->yAxis->setLabel("y");
+
+    ui->u_x_value->setText("0");
+    ui->u_y_value->setText("0");
+    ui->sigma_value->setText("-0.1");
+    ui->k_value->setText("20");
 }
 
 void MainWindow::plot_loop()

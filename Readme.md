@@ -1,5 +1,7 @@
 # Coverage control implemented by Voronoi tessellation and Density function
 
+![Alt Text](Diagram/record.gif)
+
 ## Equipment
 
 CPU: i5-3230m
