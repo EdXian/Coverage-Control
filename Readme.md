@@ -26,13 +26,20 @@ CGAL : [4.11](https://www.cgal.org/)
 
 `sudo apt-get install libcgal-dev`
 
+qcustomplot : [2.0.0](http://www.qcustomplot.com/index.php/download)
+
 Voronoi tessellation Algorithm  voronoi.h/.cpp (pure C++ 11)
 
 ## Block Diagram:
-![alt text](Diagram/Block_Diagram.png?raw=true "Title")
+![alt text](Diagram/Block_Diagram.png?raw=true "Block_diagram")
 
 ## Voronoi Tessellation:
-![alt text](Diagram/Voronoi_Tessellation.png?raw=true "Title")
+![alt text](Diagram/Voronoi_Tessellation.png?raw=true "voronoi_tessellation")
+
+## Reference
+CENTROIDAL VORONOI TESSELLATIONS ([CVT](https://www.whitman.edu/Documents/Academics/Mathematics/burns.pdf))
+[Distributed  Dynamic  Density  Coverage  for  Human-Swarm Interactions](https://magnus.ece.gatech.edu/Papers/denseACC15.pdf)
+
 
 ## Trouble Shooting:
 
