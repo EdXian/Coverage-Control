@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#define obstacle
+//#define distribution
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
@@ -51,6 +53,31 @@ void MainWindow::plot_loop()
     vor.set_vor_points(vor_dot);
 
     vor.set_density(q,k,u_x,u_y,sigma);
+//add obstacle
+#ifdef distribution
+    QVector<double> x_o,y_o;
+    for(int i=0;i<20;i++)
+    {
+        for(int j=-40;j<40;j++)
+        {
+         q[i*100+j+5000].density=0;
+         x_o.push_back(q[i*100+j+4000].x);
+         y_o.push_back(q[i*100+j+4000].y);
+        }
+    }
+
+
+
+    ui->customPlot->addGraph();
+    ui->customPlot->graph(graph_id)->setLineStyle(QCPGraph::LineStyle::lsNone);
+    ui->customPlot->graph(graph_id)->setScatterStyle(QCPScatterStyle::ssCircle);
+    ui->customPlot->graph(graph_id)->setPen(QPen(Qt::green));
+    ui->customPlot->graph(graph_id)->setData(x_o,y_o);
+    graph_id++;
+#endif
+//
+
+
     vor.allocate(q);
     vor.distribute(q,partition);
     vor.get_partition_masscenter(partition,c);
@@ -100,9 +127,17 @@ void MainWindow::plot_loop()
     ui->customPlot->replot();
     for(unsigned int i=0;i<vor_dot.size();i++)
     {
+#ifdef obstacle
+        if(i==2)
+        {
+            continue;
+        }
+#endif
         vor_dot[i].x += -0.1*(vor_dot[i].x-c[i].x);
         vor_dot[i].y += -0.1*(vor_dot[i].y-c[i].y);
     }
+
+
 
 }
 
@@ -114,8 +149,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-        u_x= ui->u_x_value->text().toDouble();
-        u_y= ui->u_y_value->text().toDouble();
+        u_x= ui->u_y_value->text().toDouble();
+        u_y= ui->u_x_value->text().toDouble();
         k=ui->k_value->text().toDouble();
         sigma=ui->sigma_value->text().toDouble();
 }
