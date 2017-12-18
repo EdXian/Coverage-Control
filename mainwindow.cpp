@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
+#include "qcustomplot.h"
 #define obstacle
 //#define distribution
 MainWindow::MainWindow(QWidget *parent) :
@@ -119,8 +119,10 @@ void MainWindow::plot_loop()
         dfy.push_back(vor_dot[i].y);
         ui->customPlot->addGraph();
         ui->customPlot->graph(graph_id)->setData(dfx,dfy);
-        ui->customPlot->graph(graph_id)->setLineStyle(QCPGraph::LineStyle::lsNone);
+
+        ui->customPlot->graph(graph_id)->setLineStyle(QCPGraph::lsNone);
         ui->customPlot->graph(graph_id)->setScatterStyle(QCPScatterStyle::ssCircle);
+
         ui->customPlot->graph(graph_id)->setPen(QPen(Qt::red));
         graph_id++;
     }
