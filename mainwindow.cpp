@@ -1,8 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "qcustomplot.h"
-#define obstacle
-//#define distribution
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
@@ -20,6 +19,8 @@ MainWindow::MainWindow(QWidget *parent) :
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()),this, SLOT(plot_loop()));
     timer->start(50);
+
+    ui->customPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
     ui->customPlot->xAxis->setRange(-10,10);
     ui->customPlot->yAxis->setRange(-10,10);
     ui->customPlot->xAxis->setLabel("x");
@@ -54,27 +55,7 @@ void MainWindow::plot_loop()
 
     vor.set_density(q,k,u_x,u_y,sigma);
 //add obstacle
-#ifdef distribution
-    QVector<double> x_o,y_o;
-    for(int i=0;i<20;i++)
-    {
-        for(int j=-40;j<40;j++)
-        {
-         q[i*100+j+5000].density=0;
-         x_o.push_back(q[i*100+j+4000].x);
-         y_o.push_back(q[i*100+j+4000].y);
-        }
-    }
 
-
-
-    ui->customPlot->addGraph();
-    ui->customPlot->graph(graph_id)->setLineStyle(QCPGraph::LineStyle::lsNone);
-    ui->customPlot->graph(graph_id)->setScatterStyle(QCPScatterStyle::ssCircle);
-    ui->customPlot->graph(graph_id)->setPen(QPen(Qt::green));
-    ui->customPlot->graph(graph_id)->setData(x_o,y_o);
-    graph_id++;
-#endif
 //
 
 
@@ -129,12 +110,6 @@ void MainWindow::plot_loop()
     ui->customPlot->replot();
     for(unsigned int i=0;i<vor_dot.size();i++)
     {
-#ifdef obstacle
-        if(i==2)
-        {
-            continue;
-        }
-#endif
         vor_dot[i].x += -0.1*(vor_dot[i].x-c[i].x);
         vor_dot[i].y += -0.1*(vor_dot[i].y-c[i].y);
     }
@@ -155,4 +130,53 @@ void MainWindow::on_pushButton_clicked()
         u_y= ui->u_x_value->text().toDouble();
         k=ui->k_value->text().toDouble();
         sigma=ui->sigma_value->text().toDouble();
+}
+
+void MainWindow::on_checkBox_clicked()
+{
+    if(ui->checkBox->isChecked()){
+        colorMap = new QCPColorMap(ui->customPlot->xAxis, ui->customPlot->yAxis);
+        colorScale = new QCPColorScale(ui->customPlot);
+        marginGroup = new QCPMarginGroup(ui->customPlot);
+
+        int nx = 200;
+        int ny = 200;
+        colorMap->data()->setSize(nx, ny);
+        colorMap->data()->setRange(QCPRange(-10, 10), QCPRange(-10, 10));
+        double x, y,value;
+//        double u_x=0,u_y=0;
+//        double k=20,sigma=-0.1;
+
+        for (int xIndex=0; xIndex<nx; ++xIndex)
+               {
+                   for (int yIndex=0; yIndex<ny; ++yIndex)
+                   {
+                       colorMap->data()->cellToCoord(xIndex, yIndex, &x, &y);
+
+                       value = k*exp(sigma*((x-u_x)*(x-u_x)+(y-u_y)*(y-u_y)));
+
+
+                       colorMap->data()->setCell(xIndex, yIndex, value);
+
+                   }
+               }
+               colorScale->setType(QCPAxis::atRight);
+               colorMap->setColorScale(colorScale);
+
+               colorMap->setGradient(QCPColorGradient::gpJet);
+               colorMap->rescaleDataRange();
+               ui->customPlot->axisRect()->setMarginGroup(QCP::msBottom|QCP::msTop, marginGroup);
+               colorScale->setMarginGroup(QCP::msBottom|QCP::msTop, marginGroup);
+
+    }else{
+
+        colorMap->data()->clear();
+    }
+
+
+
+
+
+
+
 }

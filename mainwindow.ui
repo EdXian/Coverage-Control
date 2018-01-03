@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>847</width>
-    <height>700</height>
+    <height>674</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,10 +17,10 @@
    <widget class="QCustomPlot" name="customPlot" native="true">
     <property name="geometry">
      <rect>
-      <x>110</x>
-      <y>10</y>
-      <width>611</width>
-      <height>611</height>
+      <x>10</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
      </rect>
     </property>
    </widget>
@@ -129,6 +129,19 @@
      <string>Sigma</string>
     </property>
    </widget>
+   <widget class="QCheckBox" name="checkBox">
+    <property name="geometry">
+     <rect>
+      <x>740</x>
+      <y>220</y>
+      <width>101</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Colormap</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -136,7 +149,7 @@
      <x>0</x>
      <y>0</y>
      <width>847</width>
-     <height>22</height>
+     <height>19</height>
     </rect>
    </property>
   </widget>

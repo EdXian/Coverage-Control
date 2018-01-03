@@ -59,11 +59,15 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-
+    QCPColorMap* colorMap;
+    QCPColorScale* colorScale;
+    QCPMarginGroup* marginGroup;
 
 private slots:
     void on_pushButton_clicked();
     void plot_loop();
+    void on_checkBox_clicked();
+
 private:
     Ui::MainWindow *ui;
     int graph_id;
@@ -80,6 +84,7 @@ private:
      dot_set vor_dot;
      double u_x=0,u_y=0;
      double k=20,sigma=-0.1;
+
 
 };
 

@@ -27,14 +27,14 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     qcustomplot.cpp \
-    voronoi.cpp \
-    density_func.cpp
+    voronoi.cpp
+
 
 HEADERS += \
         mainwindow.h \
     qcustomplot.h \
-    voronoi.h \
-    density_func.h
+    voronoi.h
+
 
 FORMS += \
         mainwindow.ui

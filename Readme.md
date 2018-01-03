@@ -2,6 +2,9 @@
 
 ![Alt Text](Diagram/record.gif)
 
+![Alt Text](Diagram/demo.png)
+
+![Alt Text](Diagram/colormap.png)
 ## Equipment
 
 CPU: i5-3230m
