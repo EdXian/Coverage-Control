@@ -26,14 +26,14 @@ LIBS += -lgmp -lmpfr -lCGAL
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    qcustomplot.cpp \
-    voronoi.cpp
+        qcustomplot.cpp \
+        voronoi.cpp
 
 
 HEADERS += \
         mainwindow.h \
-    qcustomplot.h \
-    voronoi.h
+        qcustomplot.h \
+        voronoi.h
 
 
 FORMS += \

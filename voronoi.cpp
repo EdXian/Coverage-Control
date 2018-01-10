@@ -20,6 +20,7 @@ void voronoi::q_define(dot_set& data)
             data.push_back(_data);
         }
     }
+
 }
 
 void voronoi::set_vor_points(dot_set &data)
@@ -70,7 +71,8 @@ void voronoi::set_density(dot_set& data,double k,double u_x,double u_y,double si
 {
    for(dot_set::iterator it = data.begin();it!=data.end();it++)
    {
-       (*it).density = k*exp(sigma*(((*it).x-u_x)*((*it).x-u_x)+((*it).y-u_y)*((*it).y-u_y)));
+       (*it).density = k*exp(sigma*(((*it).x-u_x)*((*it).x-u_x)+((*it).y-u_y)*((*it).y-u_y)))  ;
+
    }
 }
 
@@ -100,3 +102,14 @@ void voronoi::print(){
 
     std::cout<<"ok"<<std::endl;
 }
+//
+
+
+
+/* 1. initialize voronoi
+ * 2. update density function
+ * 3. set voronoi point
+ * 4. compute voronoi center
+ * add potential field controller
+ * p(t+1) = P(t) + v*dt
+*/

@@ -1,15 +1,11 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
 #include <QMainWindow>
-
 #include "qcustomplot.h"
 #include "stdio.h"
 #include "iostream"
 #include "math.h"
-
 #include <voronoi.h>
-#include <density_func.h>
 #include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
 #include <CGAL/Delaunay_triangulation_2.h>
 #include <iterator>
@@ -74,17 +70,17 @@ private:
     std::vector<Point_2> vor_points1;  // vor_points
     dot_set q;
     dot_set c;
-    density_set density_dot;
+   // density_set density_dot;
 
   //  double k=25,u=0,sigma=2;
     QVector<double> dfx, dfy;
     //voronoi *vor;
-    density_func *den;
+    //density_func *den;
      QTimer *timer;
      dot_set vor_dot;
      double u_x=0,u_y=0;
      double k=20,sigma=-0.1;
-
+    double theta;
 
 };
 

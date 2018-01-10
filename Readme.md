@@ -2,6 +2,8 @@
 
 ![Alt Text](Diagram/record.gif)
 
+![Alt Text](Diagram/demo.gif)
+
 ![Alt Text](Diagram/demo.png)
 
 ![Alt Text](Diagram/colormap.png)

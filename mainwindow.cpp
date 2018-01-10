@@ -9,6 +9,9 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    colorMap = new QCPColorMap(ui->customPlot->xAxis, ui->customPlot->yAxis);
+    colorScale = new QCPColorScale(ui->customPlot);
+    marginGroup = new QCPMarginGroup(ui->customPlot);
 
     vor_dot[0].x=0;vor_dot[0].y=0;
     vor_dot[1].x=1;vor_dot[1].y=1;
@@ -40,6 +43,10 @@ void MainWindow::plot_loop()
     voronoi vor(10,10,0.2);
     vor_partition partition(6);
 
+    theta+=0.01;
+
+    u_x =  3*cos(theta);
+    u_y =  3*sin(theta);
     //initialize
     c.clear();
     q.clear();
@@ -74,7 +81,35 @@ void MainWindow::plot_loop()
     }
     dt2.insert(vor_points1.begin(),vor_points1.end());
     dt2.draw_dual(vor1);
+    if(ui->checkBox->isChecked()){
+        int nx = 200;
+        int ny = 200;
+        colorMap->data()->setSize(nx, ny);
+        colorMap->data()->setRange(QCPRange(-10, 10), QCPRange(-10, 10));
+        double x, y,value;
+        for (int xIndex=0; xIndex<nx; ++xIndex)
+               {
+                   for (int yIndex=0; yIndex<ny; ++yIndex)
+                   {
+                       colorMap->data()->cellToCoord(xIndex, yIndex, &x, &y);
 
+                       value = k*exp(sigma*((x-u_x)*(x-u_x)+(y-u_y)*(y-u_y)));
+
+
+                       colorMap->data()->setCell(xIndex, yIndex, value);
+
+                   }
+               }
+               colorScale->setType(QCPAxis::atRight);
+               colorMap->setColorScale(colorScale);
+               colorMap->setGradient(QCPColorGradient::gpJet);
+               colorMap->rescaleDataRange();
+               ui->customPlot->axisRect()->setMarginGroup(QCP::msBottom|QCP::msTop, marginGroup);
+               colorScale->setMarginGroup(QCP::msBottom|QCP::msTop, marginGroup);
+
+    }else{
+        colorMap->data()->clear();
+    }
      for(std::list<Segment_2>::iterator it=vor1.m_cropped_vd.begin();it!=vor1.m_cropped_vd.end();it++)
      {
         Segment_2 &data=*it;
@@ -134,6 +169,7 @@ void MainWindow::on_pushButton_clicked()
 
 void MainWindow::on_checkBox_clicked()
 {
+    /*
     if(ui->checkBox->isChecked()){
         colorMap = new QCPColorMap(ui->customPlot->xAxis, ui->customPlot->yAxis);
         colorScale = new QCPColorScale(ui->customPlot);
@@ -172,11 +208,5 @@ void MainWindow::on_checkBox_clicked()
 
         colorMap->data()->clear();
     }
-
-
-
-
-
-
-
+  */
 }
